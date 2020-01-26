@@ -9,6 +9,7 @@ import { ManageCategoriesComponent } from './manage-categories/manage-categories
 import { ManagePagesComponent } from './manage-pages/manage-pages.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { PageFormComponent } from './page-form/page-form.component';
+import { CategoryFormComponent } from './category-form/category-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PageFormComponent } from './page-form/page-form.component';
      ManageCategoriesComponent,
      ManagePagesComponent,
      BlogFormComponent,
-     PageFormComponent
+     PageFormComponent,
+     CategoryFormComponent
     ],
   imports: [
     CommonModule,

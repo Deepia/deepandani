@@ -3,24 +3,45 @@
   <div class="dash-header">
     <div class="dash-title">
         <h1>{{title}}</h1>
+        
     </div>
+
     <div class="dash-nav">
         <a [routerLink]="['/admin/blogs/create']" class="btn btn-success">Add Post</a>
     </div>
+    
   </div>
+  <div class="dash-header">
+  <div class="dash-title">
+    <select class="form-control" (change)="onChange($event)">
+      <option value="">Select Category</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+    </select>
+  </div>
+  
+</div>
+<br/>
   <table class="table table-bordered table-striped">
     <tr>
-        <th>#ID</th>
+        <th>S.No</th>
+        <th>Category</th>
         <th>Image</th>
-        <th>Title</th>
-        <th>Created At</th>
+        <!-- <th>Title</th>
+        <th>Created At</th> -->
+        <th>Is Featured?</th>
+        <th>Is Active?</th>
         <th>Action</th>
     </tr>
-    <tr *ngFor="let blog of blogs">
-        <td>{{blog.id}}</td>
+    <tr *ngFor="let blog of blogs; let ndx = index;">
+        <td>{{ ndx + 1}}</td>
+        <td>{{blog.category_name}}</td>
         <td><img src="http://kanha.deepandani.in/images/{{blog.image}}" ></td>
-        <td>{{blog.title}}</td>
-        <td>{{blog.created_at | date: 'mediumDate'}}</td>
+        <!-- <td>{{blog.title}}</td>
+        <td>{{blog.created_at | date: 'mediumDate'}}</td> -->
+        <td [ngClass]="{active: blog.is_featured==true, inactive: blog.is_featured==false}">{{blog.is_featured==true?"Yes":"No"}}
+        </td>
+        <td [ngClass]="{active: blog.is_active==true, inactive: blog.is_active==false}">{{blog.is_active==true?"Yes":"No"}}
+        </td>
         <td class="action">
             <a [routerLink]="['/admin/blogs/edit', blog.id]" class="btn btn-info btn-sm">Edit</a>
             <a (click)="onDelete(blog.id)" class="btn btn-danger btn-sm">Delete</a>

@@ -10,19 +10,19 @@
   </div>
   <table class="table table-bordered table-striped">
     <tr>
-        <th>#ID</th>
+        <th>S.No</th>
         <th>Title</th>
         <th>Slug</th>
         <th>Created At</th>
-        <th>Status</th>
+        <th>Is Active?</th>
         <th>Action</th>
     </tr>
-    <tr *ngFor="let page of pages" >
-        <td>{{page.id}}</td>
+    <tr *ngFor="let page of pages; let ndx = index;" >
+        <td>{{ ndx + 1}}</td>
         <td>{{page.title}}</td>
         <td>{{page.slug}}</td>
         <td>{{page.created_at | date: 'mediumDate'}}</td>
-        <td [ngClass]="{active: page.is_active==true, inactive: page.is_active==false}">{{page.is_active==true?"Active":"InActive"}}
+        <td [ngClass]="{active: page.is_active==true, inactive: page.is_active==false}">{{page.is_active==true?"Yes":"No"}}
 
             
         </td>

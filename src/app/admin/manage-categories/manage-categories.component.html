@@ -1,1 +1,32 @@
-<p>manage-categories works!</p>
+
+  <div class="dash-header">
+    <div class="dash-title">
+        <h1>{{title}}</h1>
+    </div>
+    <div class="dash-nav">
+        <a [routerLink]="['/admin/categories/create']" class="btn btn-success">Add Category</a>
+    </div>
+  </div>
+  <table class="table table-bordered table-striped">
+    <tr>
+        <th>S.No</th>
+        <th>Category Name</th>
+        <th>Created At</th>
+        <th>Is Active?</th>
+        <th>Action</th>
+    </tr>
+    <tr *ngFor="let category of categories; let ndx = index;" >
+        <td>{{ ndx + 1 | number }}</td>
+        <td>{{category.category_name}}</td>
+        <td>{{category.created_at | date: 'mediumDate'}}</td>
+        <td [ngClass]="{active: category.is_active==true, inactive: category.is_active==false}">{{category.is_active==true?"Yes":"No"}}
+ 
+        </td>
+        <td class="action">
+            <a [routerLink]="['/admin/categories/edit', category.id]" class="btn btn-info btn-sm">Edit</a>
+            <a (click)="onDelete(category.id)" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+    </tr>
+  </table>
+  {{error}}  
+

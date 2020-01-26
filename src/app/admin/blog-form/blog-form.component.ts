@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
+import { BlogpostService } from '../../blogpost/blogpost.service';
+import { Category } from '../../blogpost/category';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
@@ -16,15 +18,20 @@ export class BlogFormComponent implements OnInit {
   postImage: string ='/assets/images/no-image.jpg';
   blogForm: FormGroup;
   fileToUpload: File = null;
+  categories: Category;
 
   constructor(
     private fb: FormBuilder,
     private blogService: BlogService,
+    private blogpostService: BlogpostService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.blogpostService.getCategories().subscribe(
+      (data: Category) => this.categories = data
+    );
     this.postImage ='/assets/images/no-image.jpg';
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -33,6 +40,7 @@ export class BlogFormComponent implements OnInit {
         res => {
           this.blogForm.patchValue({
             title: res.title,
+            category_id: res.category_id,
             short_desc: res.short_desc,
             description: res.description,
             is_featured: (res.is_featured==true)?'1':'0',
@@ -44,10 +52,12 @@ export class BlogFormComponent implements OnInit {
       );
     } else {
       this.pageTitle = 'Create Blog';
+      
     }
 
     this.blogForm = this.fb.group({
       id: [''],
+      category_id: ['', Validators.required],
       title: ['', Validators.required],
       short_desc: ['', Validators.required],
       description: ['', Validators.required],
@@ -75,12 +85,14 @@ export class BlogFormComponent implements OnInit {
     reader.readAsDataURL(this.fileToUpload);
   }
 
+  get category_id() { return this.blogForm.get('category_id'); }
   get title() { return this.blogForm.get('title'); }
   get short_desc() { return this.blogForm.get('short_desc'); }
   get description() { return this.blogForm.get('description'); }
 
   onSubmit () {
     const formData = new FormData();
+    formData.append('category_id', this.blogForm.get('category_id').value);
     formData.append('title', this.blogForm.get('title').value);
     formData.append('short_desc', this.blogForm.get('short_desc').value);
     formData.append('description', this.blogForm.get('description').value);

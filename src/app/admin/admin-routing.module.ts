@@ -8,6 +8,7 @@ import { ManageCategoriesComponent } from './manage-categories/manage-categories
 import { ManagePagesComponent } from './manage-pages/manage-pages.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import {PageFormComponent} from './page-form/page-form.component';
+import {CategoryFormComponent} from './category-form/category-form.component';
 import { AuthGuard } from '../auth/auth.guard';
 
 
@@ -24,6 +25,8 @@ const routes: Routes = [
         { path: 'blogs/create', component: BlogFormComponent },
         { path: 'blogs/edit/:id', component: BlogFormComponent },
         { path: 'categories', component: ManageCategoriesComponent },
+        { path: 'categories/create', component: CategoryFormComponent },
+        { path: 'categories/edit/:id', component: CategoryFormComponent },
         { path: 'pages', component: ManagePagesComponent },
         { path: 'pages/create', component: PageFormComponent },
         { path: 'pages/edit/:id', component: PageFormComponent },

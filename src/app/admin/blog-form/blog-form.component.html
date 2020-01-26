@@ -7,6 +7,20 @@
   <div class="blog-form">
     <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
       <div class="form-group form-row">
+        <label class="col-md-3">Category<span class="required">*</span></label>
+        <div class="col-md-9">
+          <select class="form-control" formControlName="category_id" required>
+            <option value="">Select Category</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+          </select>
+          <div *ngIf="category_id.invalid && (category_id.dirty || category_id.touched)" class="error">
+            <div *ngIf="category_id.errors">
+              Category is required.
+            </div>
+          </div>
+        </div>
+    </div>
+      <div class="form-group form-row">
           <label class="col-md-3">Title <span class="required">*</span></label>
           <div class="col-md-9">
             <input type="text" formControlName="title" class="form-control" placeholder="Title" required>

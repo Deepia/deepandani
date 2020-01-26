@@ -13,8 +13,8 @@ export class BlogService {
   serverUrl = environment.baseUrl+'Blog/';
 
   constructor(private http: HttpClient) { }
-  getBlogs() {
-    return this.http.get<Blog>(this.serverUrl + 'listadminblogs').pipe(
+  getBlogs(categoryid?: number) {
+    return this.http.get<Blog>(this.serverUrl + 'listadminblogs/' + categoryid).pipe(
       catchError(this.handleError)
     );
   }
